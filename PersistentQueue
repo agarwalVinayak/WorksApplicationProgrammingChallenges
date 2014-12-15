@@ -1,0 +1,62 @@
+package jp.co.wap.exam;
+
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
+
+/**
+ * The Queue class represents an immutable first-in-first-out (FIFO) queue of
+ * objects.
+ * 
+ * @param <E>
+ */
+public  class PersistentQueue<E> {
+	private ArrayList<E> queue;
+
+	/**
+	 * requires default constructor.
+	 */
+	public PersistentQueue() {
+		queue = new ArrayList<E>();
+	}
+
+	private PersistentQueue(ArrayList<E> queue) {
+		this.queue = queue;
+	}
+
+	public PersistentQueue<E> enqueue(E e) {
+
+		if (e == null) {
+			throw new IllegalArgumentException();
+		}
+		PersistentQueue q = new PersistentQueue<>();
+		q.queue = (ArrayList<E>) this.queue.clone();
+		q.queue.add(e);
+		return q;
+	}
+
+	public PersistentQueue<E> dequeue() {
+
+		if (queue.isEmpty()) {
+			throw new NoSuchElementException();
+		}
+		PersistentQueue q = new PersistentQueue<>();
+		q.queue = (ArrayList<E>) this.queue.clone();
+		q.queue.remove(0);
+		return q;
+	}
+
+	public E peek() {
+
+		if (queue.isEmpty()) {
+			throw new NoSuchElementException();
+		}
+		return queue.get(0);
+	}
+
+	public int size() {
+
+		return queue.size();
+	}
+
+
+}
